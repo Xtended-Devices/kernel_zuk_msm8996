@@ -241,6 +241,11 @@ static void tcp_westwood_event(struct sock *sk, enum tcp_ca_event event)
 	struct tcp_sock *tp = tcp_sk(sk);
 	struct westwood *w = inet_csk_ca(sk);
 
+	switch(event) {
+	case CA_EVENT_FAST_ACK:
+		westwood_fast_bw(sk);
+		break;
+
 	switch (event) {
 	case CA_EVENT_COMPLETE_CWR:
 		tp->snd_cwnd = tp->snd_ssthresh = tcp_westwood_bw_rttmin(sk);
