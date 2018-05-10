@@ -1,5 +1,6 @@
 obj-$(CONFIG_CRYPTO_DEV_QCEDEV) += qcedev.o
 obj-$(CONFIG_CRYPTO_DEV_QCOM_MSM_QCE) += qce50.o
+CFLAGS_qcedev.o := $(call cc-option,-Wno-frame-larger-than=)
 ifdef CONFIG_COMPAT
 obj-$(CONFIG_CRYPTO_DEV_QCOM_MSM_QCE) += compat_qcedev.o
 endif
