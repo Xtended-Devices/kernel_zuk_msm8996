@@ -3866,10 +3866,10 @@ qpnp_eoc_work(struct work_struct *work)
 		} else {
 			if (count == CONSECUTIVE_COUNT) {
 				if (!chip->bat_is_cool && !chip->bat_is_warm) {
-					pr_info("End of Charging\n");
+					pr_debug("End of Charging\n");
 					chip->chg_done = true;
 				} else {
-					pr_info("stop charging: battery is %s, vddmax = %d reached\n",
+					pr_debug("stop charging: battery is %s, vddmax = %d reached\n",
 						chip->bat_is_cool
 							? "cool" : "warm",
 						qpnp_chg_vddmax_get(chip));
@@ -5719,7 +5719,7 @@ qpnp_charger_probe(struct spmi_device *spmi)
 
 	schedule_delayed_work(&chip->aicl_check_work,
 		msecs_to_jiffies(EOC_CHECK_PERIOD_MS));
-	pr_info("success chg_dis = %d, bpd = %d, usb = %d, dc = %d b_health = %d batt_present = %d\n",
+	pr_debug("success chg_dis = %d, bpd = %d, usb = %d, dc = %d b_health = %d batt_present = %d\n",
 			chip->charging_disabled,
 			chip->bpd_detection,
 			qpnp_chg_is_usb_chg_plugged_in(chip),

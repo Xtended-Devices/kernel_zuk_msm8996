@@ -608,7 +608,7 @@ module_param_named(
 #define pr_smb(reason, fmt, ...)				\
 	do {							\
 		if (smbchg_debug_mask & (reason))		\
-			pr_info(fmt, ##__VA_ARGS__);		\
+			pr_debug(fmt, ##__VA_ARGS__);		\
 		else						\
 			pr_debug(fmt, ##__VA_ARGS__);		\
 	} while (0)
@@ -616,7 +616,7 @@ module_param_named(
 #define pr_smb_rt(reason, fmt, ...)					\
 	do {								\
 		if (smbchg_debug_mask & (reason))			\
-			pr_info_ratelimited(fmt, ##__VA_ARGS__);	\
+			pr_debug_ratelimited(fmt, ##__VA_ARGS__);	\
 		else							\
 			pr_debug_ratelimited(fmt, ##__VA_ARGS__);	\
 	} while (0)
@@ -1986,7 +1986,7 @@ static int smbchg_set_usb_current_max(struct smbchg_chip *chip,
 	 * order to avoid browning out the device during a hotswap.
 	 */
 	if (!chip->batt_present && current_ma < chip->usb_max_current_ma) {
-		pr_info_ratelimited("Ignoring usb current->%d, battery is absent\n",
+		pr_debug_ratelimited("Ignoring usb current->%d, battery is absent\n",
 				current_ma);
 		return 0;
 	}
@@ -4037,7 +4037,7 @@ static void smbchg_jeita_temp_monitor_work(struct work_struct *work)
 #ifdef SUPPORT_CALL_ON_FCC_OP
 	if (g_call_status){
 		vote(chip->fcc_votable,CALL_ON_FCC_VOTER,true,VOC_CALLING_ON_MAX_FCC_MA);
-		pr_info("a call in progress,fcc_ma is %d\n",fcc_ma);
+		pr_debug("a call in progress,fcc_ma is %d\n",fcc_ma);
 	} else
 		vote(chip->fcc_votable,CALL_ON_FCC_VOTER,false,0);
 #endif
@@ -4657,7 +4657,7 @@ static int smbchg_config_chg_battery_type(struct smbchg_chip *chip)
 		ret = rc;
 	} else {
 		if (chip->vfloat_mv != (max_voltage_uv / 1000)) {
-			pr_info("Vfloat changed from %dmV to %dmV for battery-type %s\n",
+			pr_debug("Vfloat changed from %dmV to %dmV for battery-type %s\n",
 				chip->vfloat_mv, (max_voltage_uv / 1000),
 				chip->battery_type);
 			rc = smbchg_float_voltage_set(chip,
@@ -4679,7 +4679,7 @@ static int smbchg_config_chg_battery_type(struct smbchg_chip *chip)
 	} else if (!rc) {
 		if (chip->iterm_ma != (iterm_ua / 1000)
 				&& !chip->iterm_disabled) {
-			pr_info("Term current changed from %dmA to %dmA for battery-type %s\n",
+			pr_debug("Term current changed from %dmA to %dmA for battery-type %s\n",
 				chip->iterm_ma, (iterm_ua / 1000),
 				chip->battery_type);
 			rc = smbchg_iterm_set(chip,
@@ -7871,7 +7871,7 @@ static irqreturn_t usbin_uv_handler(int irq, void *_chip)
 			 * to supply even 300mA. Disable hw aicl reruns else it
 			 * is only a matter of time when we get back here again
 			 */
-			pr_info("aicl_level: %d\n", aicl_level);
+			pr_debug("aicl_level: %d\n", aicl_level);
 			/* Charge with 500mA with a weak charger */
 			rc = vote(chip->usb_icl_votable, PSY_ICL_VOTER, true,
 			CURRENT_500_MA);
@@ -7973,7 +7973,7 @@ static irqreturn_t src_detect_handler(int irq, void *_chip)
 			(chip->cclogic_attached == USB_ATTACHED) ||
 			(chip->cclogic_attached == USB_REMOVE),
 			msecs_to_jiffies(2500));
-		pr_info("Waiting cclogic state ret = %d\n", ret);
+		pr_debug("Waiting cclogic state ret = %d\n", ret);
 		if (ret == 0)
 			pr_err("Waiting cclogic state timeout\n");
 #endif
@@ -9573,7 +9573,7 @@ static int reset_max_fcc_ma(struct smbchg_chip *chip, int ma, bool state)
 		return rc;
 	}
 
-	pr_info("reset max fcc to %dmA\n", ma);
+	pr_debug("reset max fcc to %dmA\n", ma);
 	return 0;
 }
 
