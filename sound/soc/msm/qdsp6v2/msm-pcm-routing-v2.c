@@ -15736,9 +15736,10 @@ static int msm_routing_probe(struct snd_soc_platform *platform)
 	snd_soc_add_platform_controls(platform,
 				device_pp_params_mixer_controls,
 				ARRAY_SIZE(device_pp_params_mixer_controls));
-
+/*
 	snd_soc_add_platform_controls(platform, msm_source_tracking_controls,
 				      ARRAY_SIZE(msm_source_tracking_controls));
+*/
 
 	snd_soc_add_platform_controls(platform, aptx_dec_license_controls,
 					ARRAY_SIZE(aptx_dec_license_controls));
