@@ -36,6 +36,8 @@
 		qcom,mdss-dsi-color-order = <0>;
 		qcom,mdss-dsi-underflow-color = <0x00>;
 		qcom,mdss-dsi-border-color = <0>;
+		qcom,ulps-enabled;
+		qcom,suspend-ulps-enabled;
 //		qcom,mdss-dsi-panel-broadcast-mode;
 		qcom,mdss-dsi-lp11-init;
 
