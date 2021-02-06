@@ -571,13 +571,13 @@ module_param_named(
 	int, S_IRUSR | S_IWUSR
 );
 
-static int smbchg_default_hvdcp_icl_ma = 1800;
+static int smbchg_default_hvdcp_icl_ma = 2400;
 module_param_named(
 	default_hvdcp_icl_ma, smbchg_default_hvdcp_icl_ma,
 	int, S_IRUSR | S_IWUSR
 );
 
-static int smbchg_default_hvdcp3_icl_ma = 3000;
+static int smbchg_default_hvdcp3_icl_ma = 2400;
 module_param_named(
 	default_hvdcp3_icl_ma, smbchg_default_hvdcp3_icl_ma,
 	int, S_IRUSR | S_IWUSR
@@ -2096,9 +2096,9 @@ static int smbchg_set_usb_current_max(struct smbchg_chip *chip,
 			chip->usb_max_current_ma = 500;
 		}
 #ifdef CONFIG_FORCE_FAST_CHARGE
-		if ((force_fast_charge > 0 && current_ma == CURRENT_500_MA) || current_ma == CURRENT_1400_MA) {
+		if ((force_fast_charge > 0 && current_ma == CURRENT_500_MA) || current_ma == CURRENT_1500_MA) {
 #else
-		if (current_ma == CURRENT_1400_MA) {
+		if (current_ma == CURRENT_1500_MA) {
 #endif
 			rc = smbchg_sec_masked_write(chip,
 					chip->usb_chgpth_base + CHGPTH_CFG,
@@ -9569,7 +9569,7 @@ static int cclogic_notifier_callback(struct notifier_block *self, unsigned long 
 #endif
 
 #ifdef SUPPORT_SCREEN_ON_FCC_OP
-#define SCREEN_ON_MAX_FCC_MA			1400
+#define SCREEN_ON_MAX_FCC_MA			2000
 static int reset_max_fcc_ma(struct smbchg_chip *chip, int ma, bool state)
 {
 	int rc = 0;
